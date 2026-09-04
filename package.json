@@ -1,0 +1,10 @@
+{
+  "name": "skyra-roadmap-site",
+  "private": true,
+  "type": "module",
+  "description": "Skyra Roadmap — static site + Stripe checkout functions",
+  "dependencies": {
+    "stripe": "^17.0.0",
+    "@supabase/supabase-js": "^2.45.0"
+  }
+}

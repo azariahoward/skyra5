@@ -1,0 +1,23 @@
+# Netlify configuration for Skyra Roadmap
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Serverless function routes (Stripe checkout + webhook define their own /api/* paths)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Security + caching headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/icon.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
