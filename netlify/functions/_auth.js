@@ -15,10 +15,8 @@ export function verifyPassword(pw, stored){
   return a.length===b.length && crypto.timingSafeEqual(a, b);
 }
 
-// Verify a Google ID token (Authorization: Bearer <id_token>) and return its email.
-export async function emailFromGoogle(req){
-  const auth = req.headers.get("authorization") || "";
-  const token = auth.startsWith("Bearer ") ? auth.slice(7) : null;
+// Validate a Google ID token string and return its email.
+async function emailFromGoogleToken(token){
   if(!token) return null;
   const r = await fetch("https://oauth2.googleapis.com/tokeninfo?id_token=" + encodeURIComponent(token));
   if(!r.ok) return null;
@@ -28,9 +26,20 @@ export async function emailFromGoogle(req){
   return info.email || null;
 }
 
-// Trusted email from EITHER an email/password session cookie OR a Google token.
+// Trusted email from ANY of: our session cookie, our session token (Bearer),
+// or a Google ID token (Bearer). Token-based so it works even if cookies are blocked.
 export async function authedEmail(req){
-  const sess = verifySession(readCookie(req));
-  if(sess?.email) return sess.email;
-  return await emailFromGoogle(req);
+  // 1) our signed session cookie
+  const cookieSess = verifySession(readCookie(req));
+  if(cookieSess?.email) return cookieSess.email;
+  // 2) Authorization: Bearer <token>
+  const auth = req.headers.get("authorization") || "";
+  const token = auth.startsWith("Bearer ") ? auth.slice(7) : null;
+  if(token){
+    const ours = verifySession(token);              // our email/password session token
+    if(ours?.email) return ours.email;
+    const g = await emailFromGoogleToken(token);     // otherwise a Google ID token
+    if(g) return g;
+  }
+  return null;
 }

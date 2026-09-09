@@ -13,6 +13,6 @@ export default async (req) => {
   if(!acct || !verifyPassword(password||"", acct.pass_hash))
     return json({ error:"Email or password is incorrect." }, 401);
   const token = signSession({ email:e });
-  return json({ email:e, name:acct.name||e, entitlement: acct.entitlement || "free" }, 200, { "Set-Cookie": sessionCookie(token) });
+  return json({ email:e, name:acct.name||e, entitlement: acct.entitlement || "free", token }, 200, { "Set-Cookie": sessionCookie(token) });
 };
 export const config = { path: "/api/login" };

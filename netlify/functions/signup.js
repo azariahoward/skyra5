@@ -15,6 +15,6 @@ export default async (req) => {
   if(existing?.pass_hash) return json({ error:"An account with that email already exists — try logging in." }, 409);
   await createUser(e, name||e, hashPassword(password));
   const token = signSession({ email:e });
-  return json({ email:e, name:name||e, entitlement: existing?.entitlement || "free" }, 200, { "Set-Cookie": sessionCookie(token) });
+  return json({ email:e, name:name||e, entitlement: existing?.entitlement || "free", token }, 200, { "Set-Cookie": sessionCookie(token) });
 };
 export const config = { path: "/api/signup" };

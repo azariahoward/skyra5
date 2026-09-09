@@ -1840,7 +1840,7 @@ async function submitAuth(){
       });
       const data = await r.json();
       if(!r.ok) return authError(data.error || 'Something went wrong — please try again.');
-      Account.set({ email:data.email, name:data.name||data.email, picture:'', sub:'email' });
+      Account.set({ email:data.email, name:data.name||data.email, picture:'', sub:'email', token:data.token });
       if(data.entitlement && data.entitlement!=='free'){ enrolledPlan=data.entitlement; applyPlan(data.entitlement,{}); }
       afterAuthSuccess();
     }catch(e){ authError('Couldn\u2019t reach the server — please try again.'); }
