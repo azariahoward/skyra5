@@ -1809,7 +1809,18 @@ function afterAuthSuccess(){
   if(plan){                                            // came from a plan button — continue that choice
     if(PLAN_RANK[plan] >= 2) Billing.startCheckout(plan);   // paid → checkout
     else applyPlan(plan, { navigate:true });                // free → proceed
+    return;
   }
+  refreshEntitlement();                                // logging in (no plan) → unlock right away if entitled
+}
+// After sign-in, ask the server what this account owns and unlock immediately (no page refresh).
+async function refreshEntitlement(){
+  if(DEMO_MODE) return;
+  try{
+    const user = await Auth.currentUser();
+    if(user && (user.entitlement === "single" || user.entitlement === "family"))
+      applyPlan(user.entitlement, {});
+  }catch(e){}
 }
 function setAuthMode(m){
   authMode = m;
