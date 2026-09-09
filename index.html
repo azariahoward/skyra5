@@ -550,6 +550,9 @@
   .sale-countdown .sc-when{font-size:11px;color:#8A5B00;font-weight:600}
   .code-banner{max-width:520px;margin:14px auto 0;background:#FBF3DE;border:1px solid #E7CE92;border-radius:10px;padding:11px 16px;text-align:center;font-size:14px;color:#8A5B00;font-weight:600}
   .code-banner b{color:#1d1e22;letter-spacing:.5px}
+  .offer-countdown{max-width:520px;margin:8px auto 0;text-align:center;font-size:13px;color:#8A5B00;font-weight:700}
+  .offer-countdown[hidden]{display:none}
+  .offer-countdown .oc-time{font-family:var(--mono);background:#fff;border:1px solid #E7CE92;border-radius:6px;padding:2px 8px;color:#1d1e22;margin:0 4px}
   .cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin:6px 0 22px}
   .cert-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}
   .cert-card .cert-tag{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--brand-text);background:var(--brand-soft);border:1px solid var(--line);border-radius:999px;padding:2px 9px;margin-bottom:8px}
@@ -557,6 +560,7 @@
   .cert-card .cert-meta{font-family:var(--mono);font-size:12px;color:var(--gold-ink,#8A5B00);font-weight:700;margin-bottom:7px}
   .cert-card p{font-size:13px;color:var(--ink-soft);line-height:1.5;margin:0}
   .choose.soon{background:var(--line);color:var(--ink-soft);cursor:not-allowed;opacity:.85}
+  .choose.change{background:var(--brand-soft);color:var(--brand-text);border:1px solid var(--brand)}
   .plan ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
   .plan li{font-size:13.5px;color:var(--ink);display:flex;gap:9px;align-items:flex-start;line-height:1.4}
   .plan li::before{content:"\2014";color:var(--C);font-weight:bold;flex:none}
@@ -1234,6 +1238,7 @@
    <div class="billing-wrap">
    <div class="billing-once">Billed every 6 months · applicable sales tax added at checkout · cancel anytime</div>
    <div class="code-banner" id="codeBanner">🎒 Back-to-school offer — enter code <b>SCHOOL26</b> at checkout to save.</div>
+   <div class="offer-countdown" id="offerCountdown" hidden></div>
    </div>
    <div class="plans" id="plans"></div>
    <p class="demo-note">Secure checkout by Stripe · cancel anytime · your card details are never stored on our servers.</p>
@@ -3107,6 +3112,35 @@ let enrolledPlan=null;            // null until they choose
 
 function money(n){ return n===0 ? 'Free' : '$'+n; }
 
+/* ---- Back-to-school offer countdown: ends 11:59 PM Central on Sep 14, 2026 (CDT = UTC-5 → Sep 15 04:59 UTC) ---- */
+const OFFER_END = new Date('2026-09-15T04:59:00Z');
+function offerActive(){ return Date.now() < OFFER_END.getTime(); }
+let offerTimer=null;
+function fmtOffer(ms){
+  const s=Math.max(0,Math.floor(ms/1000));
+  const d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60), sec=s%60;
+  const pad=n=>String(n).padStart(2,'0');
+  return `${d}d ${pad(h)}:${pad(m)}:${pad(sec)}`;
+}
+function updateOfferCountdown(){
+  const el=document.getElementById('offerCountdown'), banner=document.getElementById('codeBanner');
+  if(!el) return;
+  const ms=OFFER_END.getTime()-Date.now();
+  if(ms<=0){                                   // offer over → hide countdown + code banner
+    el.hidden=true; if(banner) banner.hidden=true;
+    if(offerTimer){ clearInterval(offerTimer); offerTimer=null; }
+    return;
+  }
+  el.hidden=false; if(banner) banner.hidden=false;
+  el.innerHTML=`Ends in <span class="oc-time">${fmtOffer(ms)}</span> · 11:59 PM CT, Sep 14`;
+}
+function startOfferCountdown(){
+  const banner=document.getElementById('codeBanner');
+  if(!offerActive()){ const el=document.getElementById('offerCountdown'); if(el) el.hidden=true; if(banner) banner.hidden=true; return; }
+  updateOfferCountdown();
+  if(!offerTimer) offerTimer=setInterval(updateOfferCountdown, 1000);
+}
+
 /* ---- Back-to-school promotion: ends at a FIXED instant — 11:59 PM Central (Houston)
        on Sep 14, 2026. CDT = UTC-5, so that's Sep 15 05:00 UTC.
        Using a Z (UTC) timestamp makes the deadline identical for every visitor worldwide. ---- */
@@ -3155,9 +3189,13 @@ function renderPlans(){
     const priceHTML = `<span class="amt">${money(price)}</span>${paid?'<span class="per"> / 6 months</span>':''}`;
     const billHTML = paid ? 'billed every 6 months · cancel anytime' : 'free forever';
     const buyable = !paid || p.available !== false;   // paid plans need a checkout link
-    const cta = isCurrent ? '<div class="current-tag"> Your current plan</div>'
-              : buyable    ? `<button class="choose">${p.cta}</button>`
-                           : `<button class="choose soon" disabled>Coming soon</button>`;
+    const hasPaid = PLAN_RANK[enrolledPlan] >= 2;      // user already has a paid subscription
+    let cta;
+    if(isCurrent)                cta = '<div class="current-tag"> Your current plan</div>';
+    else if(!paid && hasPaid)    cta = '<div class="current-tag">Included in your plan</div>';   // don't let a subscriber "downgrade" by clicking Free
+    else if(!buyable)            cta = '<button class="choose soon" disabled>Coming soon</button>';
+    else if(paid && hasPaid)     cta = '<button class="choose change">Change plan →</button>';    // already subscribed → manage/upgrade in Stripe (no double charge)
+    else                         cta = `<button class="choose">${p.cta}</button>`;
     el.innerHTML=`
       ${p.popular?'<div class="pop">Most popular</div>':''}
      <h3>${p.name}</h3>
@@ -3166,8 +3204,10 @@ function renderPlans(){
      <div class="billnote">${billHTML}</div>
      <ul>${p.features.map(f=>`<li>${f}</li>`).join('')}</ul>
       ${cta}`;
-    const btn=el.querySelector('.choose:not(.soon)');
-    if(btn) btn.onclick=()=>enroll(p.id);
+    const buyBtn=el.querySelector('.choose:not(.soon):not(.change)');
+    if(buyBtn) buyBtn.onclick=()=>enroll(p.id);
+    const changeBtn=el.querySelector('.choose.change');
+    if(changeBtn) changeBtn.onclick=()=>Billing.portal();      // switch plans via the Stripe Customer Portal
     wrap.appendChild(el);
   });
 }
@@ -4007,6 +4047,7 @@ updateResultsScreen();
 Profiles.ensure();
 renderProfileBar();
 renderAccountBar();
+startOfferCountdown();
 
 /* ---- audience toggle (grades 6–12 vs young adult 18–24) ---- */
 (function(){
