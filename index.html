@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Skyra Roadmap — Find What Fits You</title>
+<title>Skyra Roadmap — Free Career-Fit Quiz for Teens (Grades 6–12 &amp; Beyond)</title>
 <!-- ================= Meta Pixel ================= -->
 <!-- SETUP: paste your Pixel ID from Meta Events Manager below (replace YOUR_PIXEL_ID). That's the only edit needed. -->
 <script>
@@ -21,13 +21,84 @@
   })();
 </script>
 <!-- =============== End Meta Pixel =============== -->
-<meta name="description" content="Skyra Roadmap helps students in grades 6–12 and after high school discover careers that fit them — a personality quiz, 68 career profiles, real programs, community college & certificate paths, and a plan to act on.">
+<meta name="description" content="Skyra Roadmap is a free 5-minute career-fit quiz for students in grades 6–12 and beyond. Match careers to how your teen is wired, explore 68 career profiles, real summer programs, community-college and no-degree paths, and a grade-by-grade roadmap.">
+<meta name="keywords" content="career quiz for teens, career test for students, career aptitude test, careers without a degree, trade careers, community college paths, high school career planning, RIASEC quiz, what career fits me, help teen choose a career">
+<meta name="author" content="Skyra Roadmap">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://skyraroadmap.com/">
 <meta name="theme-color" content="#1d1e22">
-<meta property="og:title" content="Skyra Roadmap — Find What Fits You">
-<meta property="og:description" content="For grades 6–12 and post-high-school: a career-fit quiz, 68 profiles, real programs, and college & certificate paths.">
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="Skyra Roadmap">
+<meta property="og:title" content="Skyra Roadmap — Find the Career That Fits You">
+<meta property="og:description" content="A free 5-minute career-fit quiz for grades 6–12 and beyond. 68 career profiles, real programs, college & no-degree paths, and a grade-by-grade plan.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://skyraroadmap.com/">
+<meta property="og:image" content="https://skyraroadmap.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Skyra Roadmap — Find the Career That Fits You">
+<meta name="twitter:description" content="A free 5-minute career-fit quiz for grades 6–12 and beyond. Careers, programs, and a grade-by-grade plan.">
+<meta name="twitter:image" content="https://skyraroadmap.com/og-image.png">
+
 <link rel="icon" href="/icon.png" type="image/png">
 <link rel="apple-touch-icon" href="/icon.png">
+
+<!-- Structured data for rich results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "Skyra Roadmap",
+      "url": "https://skyraroadmap.com/",
+      "logo": "https://skyraroadmap.com/icon.png"
+    },
+    {
+      "@type": "WebSite",
+      "name": "Skyra Roadmap",
+      "url": "https://skyraroadmap.com/"
+    },
+    {
+      "@type": "WebApplication",
+      "name": "Skyra Roadmap",
+      "url": "https://skyraroadmap.com/",
+      "applicationCategory": "EducationApplication",
+      "operatingSystem": "Web",
+      "description": "A free career-fit quiz and planning tool for students in grades 6–12 and beyond.",
+      "offers": [
+        { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free — career-fit quiz + top 2 matches" },
+        { "@type": "Offer", "price": "19", "priceCurrency": "USD", "name": "Single Student — billed every 6 months" },
+        { "@type": "Offer", "price": "39", "priceCurrency": "USD", "name": "Family — up to 4 students, billed every 6 months" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Skyra Roadmap free?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes — the 5-minute career-fit quiz and your top 2 career matches are free. Paid plans unlock the full career library, real programs, college & no-degree paths, and a grade-by-grade roadmap." }
+        },
+        {
+          "@type": "Question",
+          "name": "What ages is Skyra Roadmap for?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Students in grades 6–12 and young adults figuring out their next step after high school. Accounts are owned by a parent, guardian, or educator." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the career quiz work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It uses the RIASEC framework that career counselors use — 30 quick questions map how a student is wired, then match careers that fit, including paths that don't require a four-year degree." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <!-- Google Identity Services (Sign in with Google). Loads the library; stays inert until you add a Client ID in CONFIG. -->
 <script src="https://accounts.google.com/gsi/client" async></script>
 <style>
@@ -1546,7 +1617,7 @@
    <footer>
  <div class="mono">SKYRA ROADMAP</div> Built around the Holland Codes (RIASEC) — the same six-type framework career counselors really use.<br> Pay figures are rough U.S. estimates that change over time and by location. Treat all of this as a
   starting point for your own research and conversations — not a verdict. Changing your mind is allowed, and normal.
-  <br><a class="foot-link" data-go="legal">Privacy &amp; Terms</a>
+  <br><a class="foot-link" href="/blog/">Guides</a> · <a class="foot-link" data-go="legal">Privacy &amp; Terms</a>
 </footer>
  </main>
 </div>
@@ -2026,9 +2097,14 @@ const Billing = {
 
     // REAL — Rung 1: a hosted checkout link for this plan (Stripe Payment Link, etc.).
     if (CONFIG.hostedCheckoutUrl[planId]){
-      const email = (Account.get()||{}).email;              // if signed in, prefill so auto-unlock can match
+      const email = (Account.get()||{}).email;              // the signed-in ACCOUNT email (Google or email/pw)
       let url = CONFIG.hostedCheckoutUrl[planId];
-      if (email){ url += (url.includes('?')?'&':'?') + 'prefilled_email=' + encodeURIComponent(email); }
+      if (email){
+        // Pass the account email through checkout as a base64url client_reference_id, so the webhook
+        // records entitlement under THIS email — even if Apple Pay / the payment sheet uses a different one.
+        const ref = btoa(unescape(encodeURIComponent(email))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+        url += (url.includes('?')?'&':'?') + 'prefilled_email=' + encodeURIComponent(email) + '&client_reference_id=' + ref;
+      }
       window.location.href = url;
       return;
     }
