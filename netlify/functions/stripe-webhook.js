@@ -12,6 +12,17 @@ const PLAN_BY_PRICE = {
   [process.env.STRIPE_PRICE_FAMILY]: "family",
 };
 
+// The app passes the signed-in account email as a base64url client_reference_id.
+// Decode it so entitlement is saved under the LOGIN email, not the Apple Pay / payment-sheet email.
+function decodeRef(ref) {
+  if (!ref) return null;
+  try {
+    const b64 = ref.replace(/-/g, "+").replace(/_/g, "/");
+    const email = Buffer.from(b64, "base64").toString("utf8");
+    return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email) ? email : null;
+  } catch (e) { return null; }
+}
+
 async function planFromSession(session) {
   if (session.metadata?.plan) return session.metadata.plan;
   try {
@@ -41,7 +52,9 @@ export default async (req) => {
     switch (event.type) {
       case "checkout.session.completed": {
         const s = event.data.object;
-        let email = s.customer_details?.email || s.customer_email;
+        // Prefer the ACCOUNT email the app passed as client_reference_id, so entitlement is saved under
+        // the email the user signs in with — NOT whatever email Apple Pay / the payment sheet used.
+        let email = decodeRef(s.client_reference_id) || s.customer_details?.email || s.customer_email;
         // Fallback: pull the email from the Stripe customer if the session didn't carry it
         if (!email && s.customer) {
           try { const c = await stripe.customers.retrieve(s.customer); email = c.email; }

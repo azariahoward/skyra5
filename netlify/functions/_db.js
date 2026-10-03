@@ -9,11 +9,15 @@ export const db = createClient(
   { auth: { persistSession: false } }
 );
 
+// Normalize emails the same way everywhere: trim + lowercase, so a stray space
+// or capital letter never causes a "paid but still locked" mismatch.
+const norm = (e) => (e || "").trim().toLowerCase();
+
 // Grant/downgrade a plan by email. `customerId` links the Stripe customer so
 // later subscription events (renewals, cancellations) can find the same row.
 export async function setEntitlement(email, plan, customerId) {
   if (!email) return;
-  const row = { email: email.toLowerCase(), entitlement: plan, updated_at: new Date().toISOString() };
+  const row = { email: norm(email), entitlement: plan, updated_at: new Date().toISOString() };
   if (customerId) row.stripe_customer = customerId;
   const { error } = await db.from("accounts").upsert(row, { onConflict: "email" });
   if (error) throw new Error("db upsert: " + error.message);
@@ -32,7 +36,7 @@ export async function setEntitlementByCustomer(customerId, plan) {
 export async function getEntitlement(email) {
   if (!email) return "free";
   const { data, error } = await db.from("accounts")
-    .select("entitlement").eq("email", email.toLowerCase()).maybeSingle();
+    .select("entitlement").eq("email", norm(email)).maybeSingle();
   if (error) throw new Error("db select: " + error.message);
   return data?.entitlement || "free";
 }
@@ -40,13 +44,13 @@ export async function getEntitlement(email) {
 // --- account rows (email/password + profile) ---
 export async function getAccount(email){
   if(!email) return null;
-  const { data, error } = await db.from("accounts").select("*").eq("email", email.toLowerCase()).maybeSingle();
+  const { data, error } = await db.from("accounts").select("*").eq("email", norm(email)).maybeSingle();
   if(error) throw new Error("db select: " + error.message);
   return data;
 }
 export async function createUser(email, name, passHash){
   const { error } = await db.from("accounts").upsert(
-    { email: email.toLowerCase(), name, pass_hash: passHash, updated_at: new Date().toISOString() },
+    { email: norm(email), name, pass_hash: passHash, updated_at: new Date().toISOString() },
     { onConflict: "email" });          // updates name/pass_hash; leaves entitlement untouched
   if(error) throw new Error("db upsert: " + error.message);
 }
