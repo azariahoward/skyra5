@@ -1336,7 +1336,6 @@
    </div>
    <div class="retake">
      <button class="btn ghost" id="retake">Retake the quiz</button>
-     <button class="btn ghost" id="emailPlanBtn">Email me my plan</button>
      <button class="btn" data-go="explore">Browse the library </button>
    </div>
    </div>
@@ -1887,24 +1886,12 @@
    <div class="rt-left"> Your Career Report — ready to save</div>
    <div class="rt-right">
      <button class="rt-btn ghost" id="reportClose">Close</button>
-     <button class="rt-btn ghost" id="reportEmail">Email me my plan</button>
      <button class="rt-btn" id="reportPrint">Print / Save as PDF</button>
    </div>
  </div>
  <div class="report-sheet" id="reportSheet"></div>
 </div>
 
-<!-- ===================== EMAIL MY PLAN ===================== -->
-<div class="email-modal" id="emailModal" hidden>
-  <div class="email-card" role="dialog" aria-modal="true" aria-labelledby="emTitle">
-    <button class="em-x" id="emClose" aria-label="Close">&times;</button>
-    <h2 id="emTitle">Email me my plan</h2>
-    <p>We'll send your top career matches and your next steps to your inbox. One email — no spam.</p>
-    <input id="emailInput" type="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address">
-    <button class="btn" id="emailSend">Send my plan</button>
-    <p class="em-note" id="emNote"></p>
-  </div>
-</div>
 
 
 <script>
@@ -3056,7 +3043,7 @@ back.onclick=()=>{ if(qi>0){ qi--; renderQuestion(); } };
 ============================================================ */
 function scoreVector(){
   const v={R:0,I:0,A:0,S:0,E:0,C:0};
-  responses.forEach(r=>{ if(r) v[r.t]+=r.v; });
+  responses.forEach(r=>{ if(r && r.t!==undefined) v[r.t]+=r.v; });
   return v;
 }
 function styleVector(){
@@ -3702,7 +3689,7 @@ const reportOverlay=document.getElementById('reportOverlay');
 function updateReportCta(){
   const cta=document.getElementById('reportCta');
   if(!lastResults){ cta.innerHTML=''; return; }
-  const isPro = enrolledPlan==='pro';
+  const isPro = rankOf()>=2;
   cta.innerHTML = isPro ? `
    <div class="report-card">
      <div class="ricon"></div>
@@ -3734,7 +3721,7 @@ function buildReport(){
   const name=(document.getElementById('rNameInput')?.value||'').trim() || 'Skyra Roadmap Student';
 
   // profile bars (all six, sorted high to low)
-  const order=Object.keys(r.vector).sort((a,b)=>r.vector[b]-r.vector[a]);
+  const order=Object.keys(r.vector).filter(c=>TYPES[c]).sort((a,b)=>r.vector[b]-r.vector[a]);
   const styleKeys=Object.keys(r.style||{}).filter(k=>r.style[k]>=2).sort((a,b)=>r.style[b]-r.style[a]);
   const styleLine = styleKeys.length
     ? `<p class="rep-style"><strong>Work style:</strong> prefers work that is `+
@@ -3820,7 +3807,7 @@ function buildReport(){
 }
 
 function openReport(){
-  if(enrolledPlan!=='pro'){ show('pricing'); return; }
+  if(rankOf()<2){ show('pricing'); return; }
   buildReport();
   reportOverlay.classList.add('on');
   document.body.classList.add('report-open');
@@ -4512,39 +4499,6 @@ document.querySelectorAll('[data-go="legal"]').forEach(el=> el.onclick=()=>show(
   if(zipGo) zipGo.onclick=buildNearby;
   if(zipIn) zipIn.addEventListener('keydown',function(e){ if(e.key==='Enter') buildNearby(); });
 
-  /* ---------- Email my plan ---------- */
-  var emModal=document.getElementById('emailModal');
-  function openEmail(){ if(!emModal) return; emModal.hidden=false; var i=document.getElementById('emailInput'); if(i){i.value='';i.focus();} var nte=document.getElementById('emNote'); if(nte){nte.textContent='';nte.className='em-note';} }
-  function closeEmail(){ if(emModal) emModal.hidden=true; }
-  function payload(){
-    var ms=(typeof lastResults!=='undefined' && lastResults && lastResults.top5?lastResults.top5:[]).slice(0,5).map(function(r){
-      return {n:r.c.n,pay:r.c.pay,major:r.c.major,alt:r.c.alt,now:r.c.now}; });
-    return { email:(document.getElementById('emailInput').value||'').trim(), audience:(typeof audience==='function'?audience():'student'), matches:ms };
-  }
-  function mailtoFallback(p){
-    var lines=['My Skyra Roadmap career matches:',''];
-    p.matches.forEach(function(m,i){ lines.push((i+1)+'. '+m.n+' — '+m.pay); lines.push('   College way: '+m.major); lines.push('   No-degree way: '+m.alt); lines.push('   Do now: '+m.now); lines.push(''); });
-    lines.push('From Skyra Roadmap — https://skyraroadmap.com');
-    window.location.href='mailto:'+encodeURIComponent(p.email)+'?subject='+encodeURIComponent('My Skyra Roadmap career plan')+'&body='+encodeURIComponent(lines.join('\n'));
-  }
-  async function sendPlan(){
-    var note=document.getElementById('emNote'); var p=payload();
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email)){ note.textContent='Please enter a valid email address.'; note.className='em-note err'; return; }
-    if(!p.matches.length){ note.textContent='Take the quiz first so there is a plan to send.'; note.className='em-note err'; return; }
-    note.textContent='Sending…'; note.className='em-note';
-    try{
-      var r=await fetch('/api/send-plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});
-      var j={}; try{ j=await r.json(); }catch(e){}
-      if(r.ok && j && j.ok){ note.textContent='Sent! Check your inbox (and spam, just in case).'; note.className='em-note ok'; return; }
-      mailtoFallback(p); note.textContent='Opening your email app so you can send it to yourself…'; note.className='em-note';
-    }catch(e){ mailtoFallback(p); note.textContent='Opening your email app so you can send it to yourself…'; note.className='em-note'; }
-  }
-  var emBtn=document.getElementById('emailPlanBtn'); if(emBtn) emBtn.onclick=openEmail;
-  var reBtn=document.getElementById('reportEmail'); if(reBtn) reBtn.onclick=openEmail;
-  var emClose=document.getElementById('emClose'); if(emClose) emClose.onclick=closeEmail;
-  var emSend=document.getElementById('emailSend'); if(emSend) emSend.onclick=sendPlan;
-  if(emModal) emModal.addEventListener('click',function(e){ if(e.target===emModal) closeEmail(); });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && emModal && !emModal.hidden) closeEmail(); });
 
   /* init compare */
   fillCompare();
