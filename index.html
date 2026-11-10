@@ -72,8 +72,8 @@
       "description": "A free career-fit quiz and planning tool for students in grades 6–12 and beyond.",
       "offers": [
         { "@type": "Offer", "price": "0", "priceCurrency": "USD", "name": "Free — career-fit quiz + top 2 matches" },
-        { "@type": "Offer", "price": "19", "priceCurrency": "USD", "name": "Single Student — billed every 6 months" },
-        { "@type": "Offer", "price": "39", "priceCurrency": "USD", "name": "Family — up to 4 students, billed every 6 months" }
+        { "@type": "Offer", "price": "19", "priceCurrency": "USD", "name": "Single Student — billed monthly" },
+        { "@type": "Offer", "price": "39", "priceCurrency": "USD", "name": "Family — up to 4 students, billed monthly" }
       ]
     },
     {
@@ -1031,6 +1031,113 @@
     body.report-open .report-sheet{box-shadow:none;margin:0;padding:0;max-width:none}
     .rep-job,.rep-road .rr,.rep-section{break-inside:avoid}
   }
+
+  /* ---------- readability layer: easier for younger readers, same look ---------- */
+  body{font-size:17px}
+  .lede{line-height:1.62}
+  .feat p{font-size:15px;line-height:1.62}
+  .feat h3{font-size:17.5px}
+  .world p{font-size:14.5px;line-height:1.55}
+  .mid-note{font-size:15px;line-height:1.65}
+  .cert-card p,.collarnote,.route-fine,.camp-note p,.road-note p,.nodegree p{font-size:15px;line-height:1.62}
+  .btn{font-size:16.5px}
+  .section-label{line-height:1.5}
+
+  /* how-it-works: three clear steps under the hero buttons */
+  .how3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:640px;margin:8px auto 2px;text-align:left}
+  .how3 .h3step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow-sm)}
+  .how3 .h3num{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;
+    background:var(--brand);color:#fff;font-family:var(--display);font-weight:800;font-size:15px;margin-bottom:9px}
+  .how3 .h3t{font-family:var(--display);font-weight:700;font-size:16px;margin-bottom:3px;color:var(--ink)}
+  .how3 .h3d{font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+  @media(max-width:560px){.how3{grid-template-columns:1fr;max-width:360px}}
+
+  /* quiz helper tip */
+  .quiz-tip{text-align:center;font-size:14.5px;color:var(--ink-soft);margin:4px 0 14px;font-weight:600}
+  /* ============ Added free tools ============ */
+  /* Compare */
+  .cmp-picks{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:center;margin:0 0 18px}
+  .cmp-sel{flex:1;min-width:220px;max-width:340px;font-family:var(--body);font-size:16px;color:var(--ink);
+    background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+  .cmp-sel:focus{outline:none;border-color:var(--brand)}
+  .cmp-vs{font-family:var(--display);font-weight:800;color:var(--ink-soft);font-size:14px}
+  .cmp-table{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+  .cmp-row{display:grid;grid-template-columns:150px 1fr 1fr;border-top:1px solid var(--line)}
+  .cmp-row:first-child{border-top:none}
+  .cmp-row.cmp-head .cmp-a,.cmp-row.cmp-head .cmp-b{font-family:var(--display);font-weight:800;font-size:16px;color:var(--ink);background:var(--brand-soft)}
+  .cmp-row.cmp-head .cmp-lab{background:var(--brand-soft)}
+  .cmp-lab{padding:12px 14px;font-weight:700;font-size:13px;color:var(--ink-soft);background:var(--paper);
+    font-family:var(--mono);text-transform:uppercase;letter-spacing:.5px;border-right:1px solid var(--line)}
+  .cmp-a,.cmp-b{padding:12px 14px;font-size:14.5px;line-height:1.55;color:var(--ink)}
+  .cmp-a{border-right:1px solid var(--line)}
+  @media(max-width:620px){
+    .cmp-row{grid-template-columns:1fr}
+    .cmp-lab{border-right:none;border-bottom:1px solid var(--line)}
+    .cmp-a{border-right:none;border-bottom:1px solid var(--line)}
+    .cmp-row.cmp-head{display:none}
+    .cmp-a::before{content:attr(data-who) " ";font-weight:800;color:var(--brand-text)}
+    .cmp-b::before{content:attr(data-who) " ";font-weight:800;color:var(--brand-text)}
+  }
+  /* Cost calculator */
+  .aff-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .aff-col{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;box-shadow:var(--shadow-sm)}
+  .aff-col h3{font-size:18px;margin-bottom:14px;color:var(--brand-text)}
+  .aff-f{display:block;font-size:13.5px;font-weight:600;color:var(--ink-soft);margin-bottom:12px}
+  .aff-f input{display:block;width:100%;margin-top:5px;font-family:var(--body);font-size:16px;color:var(--ink);
+    background:var(--paper);border:1.5px solid var(--line);border-radius:9px;padding:10px 12px}
+  .aff-f input:focus{outline:none;border-color:var(--brand);background:#fff}
+  .aff-result{margin-top:18px}
+  .aff-tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .aff-tile{border:1px solid var(--line);border-radius:12px;padding:18px 20px;text-align:center;background:var(--card)}
+  .aff-tile.pos{border-color:#BBD9CC;background:#F1F7F4}
+  .aff-tile.neg{border-color:#E6C9C2;background:#FBF1EE}
+  .aff-tt{font-size:13px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.5px;font-family:var(--mono)}
+  .aff-tv{font-family:var(--display);font-weight:800;font-size:30px;margin:6px 0 2px}
+  .aff-tile.pos .aff-tv{color:#2C6049} .aff-tile.neg .aff-tv{color:#9A3B29}
+  .aff-ts{font-size:12px;color:var(--ink-soft)}
+  .aff-take{margin-top:16px;background:var(--brand-soft);border:1px solid var(--line);border-left:4px solid var(--brand);
+    border-radius:10px;padding:16px 18px;font-size:15.5px;line-height:1.6}
+  .aff-caveat{margin-top:12px;font-size:13.5px;color:var(--ink-soft);line-height:1.6}
+  .aff-caveat b{color:var(--ink)}
+  .aff-fine{margin-top:14px;font-size:13px;color:var(--ink-soft);text-align:center}
+  @media(max-width:620px){.aff-grid{grid-template-columns:1fr}.aff-tiles{grid-template-columns:1fr}}
+  /* Programs near you */
+  .zip-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:0 0 18px}
+  .zip-row input{font-family:var(--body);font-size:17px;letter-spacing:2px;text-align:center;width:180px;
+    background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink)}
+  .zip-row input:focus{outline:none;border-color:var(--brand)}
+  .zip-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+  .zip-hint{grid-column:1/-1;text-align:center;color:var(--ink-soft);font-size:14.5px;padding:10px 0}
+  .zip-card{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+    box-shadow:var(--shadow-sm);transition:.18s;text-decoration:none}
+  .zip-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--brand)}
+  .zip-card b{display:block;color:var(--ink);font-size:16px;margin-bottom:4px}
+  .zip-card span{display:block;color:var(--ink-soft);font-size:13.5px;line-height:1.5}
+  .zip-card .zip-go{color:var(--brand-text);font-weight:700;font-size:13px;margin-top:8px}
+  /* Email modal */
+  .email-modal{position:fixed;inset:0;z-index:200;background:rgba(20,22,28,.82);display:flex;align-items:center;justify-content:center;padding:20px}
+  .email-modal[hidden]{display:none}
+  .email-card{background:var(--card);border-radius:14px;max-width:420px;width:100%;padding:28px 26px;position:relative;box-shadow:var(--shadow)}
+  .email-card h2{font-size:22px;margin-bottom:8px}
+  .email-card p{font-size:14.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:16px}
+  .email-card input{width:100%;font-family:var(--body);font-size:16px;color:var(--ink);background:var(--paper);
+    border:1.5px solid var(--line);border-radius:9px;padding:12px 14px;margin-bottom:12px}
+  .email-card input:focus{outline:none;border-color:var(--brand);background:#fff}
+  .email-card .btn{width:100%}
+  .em-x{position:absolute;top:14px;right:14px;width:32px;height:32px;border:none;background:var(--paper);
+    border-radius:9px;font-size:18px;color:var(--ink-soft);cursor:pointer}
+  .em-x:hover{background:var(--line)}
+  .em-note{font-size:13.5px;margin:12px 0 0;min-height:18px;text-align:center}
+  .em-note.ok{color:#2C6049;font-weight:600}
+  .em-note.err{color:#9A3B29;font-weight:600}
+  /* results: links to the free tools */
+  .res-tools{margin-top:30px}
+  .res-tools-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:4px}
+  .res-tool{display:block;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:12px;
+    padding:15px 17px;box-shadow:var(--shadow-sm);cursor:pointer;transition:.18s}
+  .res-tool:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--brand)}
+  .res-tool b{display:block;font-family:var(--display);font-size:16px;color:var(--ink);margin-bottom:3px}
+  .res-tool span{display:block;font-size:13.5px;color:var(--ink-soft);line-height:1.5}
 </style>
 </head>
 <body>
@@ -1065,12 +1172,19 @@
    <div class="side-section">Explore</div>
    <nav class="tabs" id="tabs2" aria-label="Premium sections">
      <button class="tab lockable" data-go="explore"><span class="ti"></span> <span class="tl">Career Library</span> <span class="lockmini">Full</span></button>
-     <button class="tab lockable" data-go="collars"><span class="ti"></span> <span class="tl">Job Collars</span> <span class="lockmini">Full</span></button>
+     <button class="tab lockable" data-go="collars"><span class="ti"></span> <span class="tl">Job Types</span> <span class="lockmini">Full</span></button>
      <button class="tab lockable" data-go="camps"><span class="ti"></span> <span class="tl">Summer Camps</span> <span class="lockmini">Full</span></button>
      <button class="tab lockable" data-go="certs"><span class="tl">College &amp; Certificate Paths</span> <span class="lockmini">Full</span></button>
      <button class="tab lockable" data-go="college"><span class="tl">College &amp; Majors</span> <span class="lockmini">Full</span></button>
      <button class="tab lockable" data-go="roadmap"><span class="tl">Roadmap</span> <span class="lockmini">Full</span></button>
      <button class="tab lockable" data-go="classplan"><span class="tl">Class &amp; Activity Plan</span> <span class="lockmini">Full</span></button>
+   </nav>
+   <div class="side-section">Tools</div>
+   <nav class="tabs" aria-label="Tools">
+     <button class="tab lockable" data-go="compare"><span class="ti"></span> <span class="tl">Compare Careers</span> <span class="lockmini">Full</span></button>
+     <button class="tab lockable" data-go="afford"><span class="ti"></span> <span class="tl">Cost Calculator</span> <span class="lockmini">Full</span></button>
+     <button class="tab lockable" data-go="nearby"><span class="ti"></span> <span class="tl">Programs Near You</span> <span class="lockmini">Full</span></button>
+     <button class="tab" data-go="foradults"><span class="ti"></span> <span class="tl">For Parents &amp; Teachers</span></button>
    </nav>
    <div class="side-foot">
      <button class="tab tab-pay" data-go="pricing"><span class="ti"></span> <span class="tl">Plans &amp; Pricing</span></button>
@@ -1089,13 +1203,10 @@
 
  <!-- ===================== COVER ===================== -->
  <section class="screen on cover" id="cover">
-   <div class="promo-bar" data-go="pricing">🎒 <b>50% off your first 6 months</b> — use code <b>SKYRA</b> at checkout. <span class="promo-cta">See plans →</span></div>
+   <div class="promo-bar" data-go="pricing">🎒 <b>50% off your first month</b> — use code <b>SKYRA</b> at checkout. <span class="promo-cta">See plans →</span></div>
    <div class="kicker">A field guide to your next move · grades 6–12 &amp; post-high-school</div>
-   <h1>Figure out what<br>fits <em>you</em> — before<br>you have to choose.</h1>
-   <p class="lede">Whether you're in middle school, high school, or figuring out your next move after graduation, the forks in the road add up: electives, majors, college, trade programs, first jobs, career
-      switches. You don't need your whole life mapped out — but it helps to know which directions actually fit
-      you. Take the quiz free to meet your <strong>top 2 matches</strong>, then unlock the full career library,
-      75 real programs, and a plan to act on.</p>
+   <h1>Find what fits <em>you</em>.</h1>
+   <p class="lede">In middle school, high school, or just finished? You have big choices coming — classes, college, trade school, your first job. You don't need it all planned out yet. Take the free quiz to meet your <strong>top 2 career matches</strong>. Then unlock the full career library, 75 real programs, and a plan you can follow.</p>
    <div class="aud-toggle" id="audToggle">
      <span class="aud-lbl">I'm…</span>
      <button type="button" class="aud on" data-aud="student">Grades 6–12</button>
@@ -1104,6 +1215,11 @@
    <div class="cta-row">
      <button class="btn" data-go="quiz">Take the quiz </button>
      <button class="btn ghost" data-go="pricing">See plans &amp; pricing →</button>
+   </div>
+   <div class="how3">
+     <div class="h3step"><span class="h3num">1</span><div class="h3t">Take the quiz</div><div class="h3d">30 quick questions. About 5–10 minutes.</div></div>
+     <div class="h3step"><span class="h3num">2</span><div class="h3t">Meet your matches</div><div class="h3d">See the careers that fit you best.</div></div>
+     <div class="h3step"><span class="h3num">3</span><div class="h3t">Make your plan</div><div class="h3d">Get real steps to try next.</div></div>
    </div>
    <div class="hero-stats">
      <div class="hstat"><span class="hs-num">68</span><span class="hs-lab">career profiles</span></div>
@@ -1117,47 +1233,37 @@
      <div class="feat">
        <div class="feat-ic">◆</div>
        <h3>The fit quiz</h3>
-       <p>30 quick questions based on the six-type RIASEC framework counselors actually use. Meet the careers
-          that match how you're wired — not just what sounds impressive.</p>
+       <p>30 quick questions. They show you careers that match how you think and what you like — not just what sounds cool.</p>
      </div>
      <div class="feat">
        <div class="feat-ic">◆</div>
        <h3>68 career profiles</h3>
-       <p>Real pay ranges, how long the path takes, a day in the life, the honest downsides, plus both the
-          college major <em>and</em> the no-degree route for each one.</p>
+       <p>Real pay. How long it takes. What the job is really like, good parts and bad. Plus the college way <em>and</em> the no-degree way for each one.</p>
      </div>
      <div class="feat feat-spot">
        <div class="feat-ic">★</div>
        <h3>75 real summer programs</h3>
-       <p>An easy-to-search library of actual camps and programs across 14 fields — coding, medicine, trades,
-          the arts, business and more — filterable by interest and cost. <strong>29 are free or low-cost</strong>,
-          and every student can save a shortlist of the ones they want to look into.</p>
+       <p>A big list of real camps and programs in 14 fields — coding, medicine, trades, art, business, and more. <strong>29 are free or low-cost.</strong> Save the ones you like to look at later.</p>
      </div>
      <div class="feat feat-spot">
        <div class="feat-ic">★</div>
        <h3>A roadmap from middle school on</h3>
-       <p>A season-by-season plan for <strong>every grade, 6th through 12th</strong>. Middle school is about
-          exploring and building habits; high school gets specific. Follow the guide, or switch to the fillable
-          version to check things off and add your own goals.</p>
+       <p>A plan for <strong>every grade, 6th through 12th</strong>. Middle school is for trying things. High school gets more specific. Follow the guide, or check off your own goals.</p>
      </div>
      <div class="feat">
        <div class="feat-ic">◆</div>
        <h3>College majors &amp; other routes</h3>
-       <p>See which majors lead to which jobs — and the apprenticeships, trade programs, and certifications
-          that get there without a four-year degree.</p>
+       <p>See which majors lead to which jobs. Plus the trade programs and apprenticeships that get there without a 4-year degree.</p>
      </div>
      <div class="feat">
        <div class="feat-ic">◆</div>
        <h3>A plan built around you</h3>
-       <p>Your quiz results turn into a personalized class-and-activity plan and a printable report — concrete
-          next steps, not just a personality label.</p>
+       <p>Your quiz turns into a plan made just for you — the classes to take and things to try. Real steps, not just a label. You can print it too.</p>
      </div>
    </div>
 
    <div class="mid-note">
-     <strong>Starting in middle school?</strong> Perfect timing. Grades 6–8 aren't about deciding — they're
-     about trying things, noticing what clicks, and building habits that keep every door open. Skyra Roadmap
-     is built to grow with your student all the way to graduation.
+     <strong>Just starting in middle school? Great timing.</strong> Grades 6–8 aren't about deciding yet. They're about trying things, seeing what you like, and building good habits. Skyra Roadmap grows with you all the way to graduation.
    </div>
 
    <div class="section-label" style="margin-top:34px">The six career worlds</div>
@@ -1175,8 +1281,9 @@
  <section class="screen" id="quiz">
    <div class="quiz-head">
      <div class="progress"><span id="bar"></span></div>
-     <div class="count" id="count">1 / 24</div>
+     <div class="count" id="count">1 / 30</div>
    </div>
+   <p class="quiz-tip">Tap how much you'd like each thing. There are no wrong answers.</p>
    <div class="q-card">
      <div class="lead-in">How much would you enjoy…</div>
      <h2 id="qtext">…loading</h2>
@@ -1193,8 +1300,7 @@
    <div class="res-empty" id="resultsEmpty" hidden>
      <div class="re-em"></div>
      <h2>Your matches will live here</h2>
-     <p>Take the quiz — 30 quick questions in two short parts — and your career matches
-        will show up on this tab, along with the majors and routes that lead to them.</p>
+     <p>Take the quiz. It's 30 quick questions in two short parts. Your career matches will show up right here, with the ways to get to each one.</p>
      <button class="btn" data-go="quiz">Take the quiz </button>
    </div>
    <div id="resultsBody">
@@ -1207,7 +1313,7 @@
    </div>
    <div class="ya-next" id="yaNext" hidden>
      <h3>Your next moves after high school</h3>
-     <p>You don't have to start over — you just need a direction that fits. Based on your matches, here's where to look:</p>
+     <p>You don't have to start over. You just need a direction that fits. Based on your matches, here's where to look:</p>
      <ul>
        <li><strong>Pick or switch a major</strong> that leads to one of your matches — check the college-major maps on each career card.</li>
        <li><strong>Community college &amp; certificates</strong> — often the fastest, lowest-cost route into a matched field.</li>
@@ -1215,13 +1321,22 @@
        <li><strong>First job or internship</strong> — use your matched careers as search terms and look for entry-level or assistant roles.</li>
      </ul>
    </div>
-   <div class="section-label">Tap any card for pay, how long the path takes, the college major, the no-degree route, and what to do now</div>
+   <div class="section-label">Tap any card to see the pay, how long it takes, the college way, the no-degree way, and what to do next</div>
    <div class="cards" id="topcards"></div>
    <div class="match-upsell" id="matchUpsell"></div>
    <div class="major-match" id="majorMatch"></div>
    <div class="report-cta" id="reportCta"></div>
+   <div class="res-tools">
+     <div class="section-label">Go deeper with Full Access</div>
+     <div class="res-tools-row">
+       <button class="res-tool" data-go="compare"><b>Compare careers</b><span>Put two matches side by side.</span></button>
+       <button class="res-tool" data-go="afford"><b>Cost calculator</b><span>College vs. trade — see the real numbers.</span></button>
+       <button class="res-tool" data-go="nearby"><b>Programs near you</b><span>Find real options by ZIP code.</span></button>
+     </div>
+   </div>
    <div class="retake">
      <button class="btn ghost" id="retake">Retake the quiz</button>
+     <button class="btn ghost" id="emailPlanBtn">Email me my plan</button>
      <button class="btn" data-go="explore">Browse the library </button>
    </div>
    </div>
@@ -1235,8 +1350,7 @@
    <div class="res-hero">
      <div class="kicker">The full map</div>
      <h2>The career library</h2>
-     <p class="lede">Filter by interest or by job collar, then tap a card to dig in. There are far more jobs
-        out there than this — treat it as a launchpad for your own digging.</p>
+     <p class="lede">Pick a filter, then tap a card to learn more. There are way more jobs out there than this — use it as a place to start.</p>
    </div>
    <div class="lib-search">
      <input type="search" id="libSearch" placeholder="Search careers, skills, or fields…" aria-label="Search careers">
@@ -1254,32 +1368,24 @@
    <div class="gate-content">
    <div class="intro-block">
      <div class="kicker">The college route</div>
-     <h2>Majors  careers</h2>
-     <p>A <strong>major</strong> is the subject you specialize in — usually about a third of your classes,
-      with the rest being general education and electives. Three things most people don't get told: you
-      normally don't have to declare until the end of sophomore year, <strong>changing your major is common
-      and usually fine</strong>, and most jobs don't require one specific major. Tap any major below to see
-      what you'd actually study, the classes involved, and where it leads.</p>
+     <h2>How majors lead to jobs</h2>
+     <p>A <strong>major</strong> is the main subject you study in college — about a third of your classes. Three things most people don't tell you: you usually don't have to pick until your second year, <strong>changing your major is common and okay</strong>, and most jobs don't need one exact major. Tap any major below to see what you'd study and where it leads.</p>
    </div>
    <div class="majors" id="majors"></div>
 
    <div class="nodegree">
      <h2>You don't always need a 4-year degree</h2>
-     <p>Plenty of stable, well-paid careers are reached another way. These aren't shortcuts around hard work —
-        they're different roads, often faster and far cheaper, and several out-earn the average bachelor's degree.
-        Here's how each actually works.</p>
+     <p>Lots of good, well-paid careers don't need a 4-year degree. These aren't the easy way out. They're just a different road — often faster and much cheaper. Some even pay more than the average degree. Here's how each one works.</p>
      <div class="routes" id="routes"></div>
      <div class="route-compare">
        <h3>How to think about the choice</h3>
-       <p>The real question isn't "college or not" — it's <strong>what does this specific career require, and what
-          will this specific path cost me?</strong> A nurse and an electrician both need training; they just need
-          different training. Three things worth weighing:</p>
+       <p>The real question isn't "college or not." It's <strong>what does this job need, and what will this path cost me?</strong> A nurse and an electrician both need training. They just need different training. Three things to think about:</p>
        <ul>
-         <li><strong>Total cost, not sticker price.</strong> Compare tuition <em>plus</em> the years you're not earning. A 2-year path that pays you while you learn can be tens of thousands ahead.</li>
-         <li><strong>Is the credential required by law?</strong> You cannot be a nurse, electrician, or lawyer without the license. For many other jobs, skill and portfolio matter more than the diploma.</li>
-         <li><strong>Doors it keeps open.</strong> Degrees are portable across fields; trade licenses are deep but specific. Both can lead to owning a business.</li>
+         <li><strong>Look at the full cost.</strong> Add up tuition <em>and</em> the years you're not getting paid. A 2-year path that pays you while you learn can put you way ahead.</li>
+         <li><strong>Is a license required?</strong> You can't be a nurse, electrician, or lawyer without one. For many other jobs, your skills and your work matter more than a diploma.</li>
+         <li><strong>What doors it opens.</strong> A degree works across many fields. A trade license goes deep in one. Both can lead to owning your own business.</li>
        </ul>
-       <p class="route-fine">You can also mix them: community college first then transfer, a trade while taking night classes, or military service that pays for college afterward.</p>
+       <p class="route-fine">You can also mix them: start at community college then transfer, learn a trade while taking night classes, or join the military and have it pay for college later.</p>
      </div>
    </div>
    </div></div>
@@ -1291,16 +1397,12 @@
    <div class="gate-lock" id="lock-collars"></div>
    <div class="gate-content">
      <div class="res-hero">
-       <div class="kicker">Another way to read the job world</div>
-       <h2>The four job collars</h2>
-       <p class="lede">Long before anyone said "career path," people sorted jobs by the color of the shirt
-          collar workers wore. The labels stuck. They're a quick way to picture the kind of environment,
-          training, and pay a job tends to involve — though plenty of real jobs blend more than one.</p>
+       <div class="kicker">Another way to sort jobs</div>
+       <h2>The four job types</h2>
+       <p class="lede">A long time ago, people sorted jobs by the color of shirt workers wore. The names stuck. They give you a quick idea of where a job happens, the training it needs, and the pay. Many real jobs mix more than one.</p>
      </div>
      <div class="collargrid" id="collargrid"></div>
-     <p class="collarnote">Heads up: these are broad, old-fashioned categories with fuzzy edges. A nurse
-        (pink) is also highly skilled; a developer (white) might be self-taught like a trade. Use them as a
-        lens, not a label that boxes you in.</p>
+     <p class="collarnote">Keep in mind: these are old, broad groups with fuzzy lines. A nurse (pink) is also very skilled. A coder (white) might be self-taught like a trade. Use them as a hint, not a box.</p>
    </div>
    </div>
  </section>
@@ -1310,12 +1412,11 @@
    <div class="res-hero">
      <div class="kicker">Enroll in Skyra Roadmap</div>
      <h2>Pick the plan that fits</h2>
-     <p class="lede">Start free and explore. Upgrade when you want the deeper maps, the collar guide, and a
-        real plan to act on. Choose how you'd like to pay.</p>
+     <p class="lede">Start free and look around. Upgrade when you want the full library, all the guides, and a real plan to follow. Pick how you want to pay.</p>
    </div>
    <div class="billing-wrap">
-   <div class="billing-once">Billed every 6 months · applicable sales tax added at checkout · cancel anytime</div>
-   <div class="code-banner" id="codeBanner">🎒 Enter code <b>SKYRA</b> at checkout for <b>50% off your first 6 months.</b></div>
+   <div class="billing-once">Billed monthly · applicable sales tax added at checkout · cancel anytime</div>
+   <div class="code-banner" id="codeBanner">🎒 Enter code <b>SKYRA</b> at checkout for <b>50% off your first month.</b></div>
    <div class="code-note" id="codeNote">Have a partner or referral code? Enter it at checkout too.</div>
    <div class="offer-countdown" id="offerCountdown" hidden></div>
    </div>
@@ -1331,18 +1432,13 @@
    <div class="res-hero">
      <div class="kicker">Go try it in real life</div>
      <h2>75+ career summer camps across the USA</h2>
-     <p class="lede">Reading about a job is one thing — spending a week actually doing it is another. These are
-        real programs that let students test-drive a field hands-on, from welding to neuroscience to filmmaking.
-       <strong>29 of them are free or low-cost</strong>, including several fully funded ones. Filter by field,
-        then tap any card to visit its official site.</p>
+     <p class="lede">Reading about a job is one thing. Spending a week doing it is another. These are real programs where students try a field hands-on — from welding to brain science to making movies. <strong>29 are free or low-cost</strong>, and some are fully paid for. Pick a field, then tap a card to visit its website.</p>
    </div>
    <div class="filters" id="campFilters"></div>
    <div class="campgrid" id="campgrid"></div>
    <div class="camp-note">
      <h3>Before you sign up</h3>
-     <p>Dates, prices, ages, and eligibility change every year, so <strong>confirm the details on each
-        program's official site</strong> — and ask about <strong>scholarships or financial aid</strong>, since
-        many of these offer it.</p>
+     <p>Dates, prices, and ages change every year. So <strong>check the details on each program's website</strong>. And ask about <strong>scholarships or money help</strong> — many of them offer it.</p>
      <p>Want more? There are thousands of local options too. Great places to search: your nearby
        <strong>community colleges and universities' pre-college programs</strong>, local
        <strong>museums, hospitals, and makerspaces</strong>, and directories like
@@ -1360,9 +1456,7 @@
    <div class="res-hero">
      <div class="kicker">Skip the four-year price tag</div>
      <h2>College &amp; certificate paths that pay</h2>
-     <p class="lede">A four-year degree is one road — not the only one. Community-college associate degrees,
-        short certificates, and paid apprenticeships lead to real, well-paid careers in months to two years,
-        often with little or no debt. Here are some of the strongest, and how to start.</p>
+     <p class="lede">A 4-year degree is one road, not the only one. Two-year degrees, short certificates, and paid apprenticeships lead to real, well-paid jobs in months to two years — often with little or no debt. Here are some of the best, and how to start.</p>
    </div>
 
    <div class="section-label">Health &amp; care</div>
@@ -1443,9 +1537,7 @@
      <div class="res-hero">
        <div class="kicker">Your plan, grade by grade</div>
        <h2>Your middle &amp; high school roadmap</h2>
-       <p class="lede">You don't have to do everything at once. Here's what actually matters in each grade —
-         from 6th grade through senior year, season by season — so you arrive at graduation with real options,
-         not a last-minute scramble.</p>
+       <p class="lede">You don't have to do it all at once. Here's what matters most in each grade, from 6th grade to senior year. Do a little at a time, and you'll reach graduation with real choices.</p>
      </div>
      <div class="road-toggle" role="tablist">
        <button class="rtog on" data-road="guide" role="tab" aria-selected="true">The guide</button>
@@ -1470,12 +1562,9 @@
      </div>
      <div class="road-track" id="roadTrack"></div>
      <div class="road-note">
-       <h3>Two rules that matter more than any single step</h3>
-       <p><strong>Keep your options open early, then narrow.</strong> In middle school and early high school,
-         breadth beats specialization — try things, and build the habits and grades that quietly decide what's
-         available later. By 11th and 12th, go deep on the direction that fits.</p>
-       <p><strong>Depth beats a long list.</strong> One club you led or one project you finished says more than
-         ten things you joined and quit. Colleges and employers both read commitment, not clutter.</p>
+       <h3>Two rules that matter most</h3>
+       <p><strong>Try lots of things early, then focus.</strong> In middle school and early high school, try many things and build good habits and grades. They quietly open doors later. By 11th and 12th grade, go deep on the path that fits you.</p>
+       <p><strong>Going deep beats a long list.</strong> One club you led, or one project you finished, says more than ten things you joined and quit. Colleges and bosses look for stick-with-it, not a long list.</p>
      </div>
      </div><!-- /roadGuide -->
 
@@ -1503,15 +1592,115 @@
      <div class="res-hero">
        <div class="kicker">Built from your results</div>
        <h2>Your class &amp; activity plan</h2>
-       <p class="lede">A personalized starting point — the classes to take, activities to join,
-         and skills to build, based on your quiz matches.</p>
+       <p class="lede">A starting point made for you — the classes to take, clubs to join, and skills to build, based on your quiz matches.</p>
      </div>
      <div id="planBody"></div>
      <div class="cp-empty" id="planEmpty" hidden>
-       <p>Take the quiz first and your personalized plan will build itself here.</p>
+       <p>Take the quiz first, and your plan will show up here.</p>
        <button class="btn" data-go="quiz">Take the quiz</button>
      </div>
    </div>
+   </div>
+ </section>
+
+
+ <!-- ===================== COMPARE CAREERS ===================== -->
+ <section class="screen" id="compare">
+   <div class="gate" data-gate="compare" data-rank="2">
+   <div class="gate-lock" id="lock-compare"></div>
+   <div class="gate-content">
+   <div class="res-hero">
+     <div class="kicker">Full Access tool</div>
+     <h2>Compare two careers</h2>
+     <p class="lede">Pick any two careers and see them side by side — pay, school, a day in the life, and the good and hard parts. A quick way to narrow things down.</p>
+   </div>
+   <div class="cmp-picks">
+     <select class="cmp-sel" id="cmpA" aria-label="First career"></select>
+     <span class="cmp-vs">vs</span>
+     <select class="cmp-sel" id="cmpB" aria-label="Second career"></select>
+   </div>
+   <div class="cmp-table" id="cmpTable"></div>
+   </div></div>
+ </section>
+
+ <!-- ===================== COST CALCULATOR ===================== -->
+ <section class="screen" id="afford">
+   <div class="gate" data-gate="afford" data-rank="2">
+   <div class="gate-lock" id="lock-afford"></div>
+   <div class="gate-content">
+   <div class="res-hero">
+     <div class="kicker">Full Access tool</div>
+     <h2>Can I afford this path?</h2>
+     <p class="lede">A quick, honest look at two roads: a 4-year college and a trade or apprenticeship. Change the numbers to match your plan and see where you'd stand after a few years.</p>
+   </div>
+   <div class="aff-grid">
+     <div class="aff-col">
+       <h3>4-year college</h3>
+       <label class="aff-f">Cost each year ($)<input type="number" id="affColCost" value="15000" min="0" step="500"></label>
+       <label class="aff-f">Years in school<input type="number" id="affColYears" value="4" min="1" max="10" step="1"></label>
+       <label class="aff-f">Money you earn each year while studying ($)<input type="number" id="affColEarn" value="4000" min="0" step="500"></label>
+     </div>
+     <div class="aff-col">
+       <h3>Trade / apprenticeship</h3>
+       <label class="aff-f">Program cost, total ($)<input type="number" id="affTrCost" value="6000" min="0" step="500"></label>
+       <label class="aff-f">Months to finish training<input type="number" id="affTrMonths" value="12" min="1" max="60" step="1"></label>
+       <label class="aff-f">Pay each year once working ($)<input type="number" id="affTrPay" value="45000" min="0" step="1000"></label>
+     </div>
+   </div>
+   <div class="aff-result" id="affResult"></div>
+   </div></div>
+ </section>
+
+ <!-- ===================== PROGRAMS NEAR YOU ===================== -->
+ <section class="screen" id="nearby">
+   <div class="gate" data-gate="nearby" data-rank="2">
+   <div class="gate-lock" id="lock-nearby"></div>
+   <div class="gate-content">
+   <div class="res-hero">
+     <div class="kicker">Full Access tool</div>
+     <h2>Find programs near you</h2>
+     <p class="lede">Type your ZIP code to jump straight into trusted, official finders for colleges, trade programs, apprenticeships, and camps close to home.</p>
+   </div>
+   <div class="zip-row">
+     <input id="zipIn" inputmode="numeric" maxlength="5" placeholder="Enter ZIP code" aria-label="ZIP code">
+     <button class="btn" id="zipGo">Find</button>
+   </div>
+   <div class="zip-links" id="zipLinks"><p class="zip-hint">Enter a 5-digit ZIP code to see nearby options.</p></div>
+   <p class="aff-fine">Links open official government and nonprofit search tools in a new tab. Skyra doesn't save your ZIP code.</p>
+   </div></div>
+ </section>
+
+ <!-- ===================== FOR PARENTS & TEACHERS ===================== -->
+ <section class="screen" id="foradults">
+   <div class="res-hero">
+     <div class="kicker">For the grown-ups</div>
+     <h2>For parents, guardians &amp; teachers</h2>
+     <p class="lede">Skyra Roadmap helps a young person figure out what fits them — and gives you a simple way to help without the pressure. Here's how to make the most of it.</p>
+   </div>
+
+   <div class="feat-grid">
+     <div class="feat"><div class="feat-ic">◆</div><h3>Start a real conversation</h3><p>The quiz gives you something concrete to talk about — "you matched with nursing, what do you think?" — instead of the dreaded "so what do you want to do with your life?"</p></div>
+     <div class="feat"><div class="feat-ic">◆</div><h3>Low pressure, by design</h3><p>Nothing here asks a kid to decide their future. It's about trying things, noticing what clicks, and keeping doors open — especially in middle school.</p></div>
+     <div class="feat"><div class="feat-ic">◆</div><h3>Built on real research</h3><p>The quiz uses the Holland Codes (RIASEC), the same six-type framework school counselors use. Results point to fields that fit, not a single "answer."</p></div>
+   </div>
+
+   <div class="section-label" style="margin-top:30px">How to use it in 3 steps</div>
+   <div class="how3" style="max-width:none">
+     <div class="h3step"><span class="h3num">1</span><div class="h3t">Take the quiz together</div><div class="h3d">Sit with your student for the 5–10 minute quiz, or let them do it solo.</div></div>
+     <div class="h3step"><span class="h3num">2</span><div class="h3t">Talk through the matches</div><div class="h3d">Open two or three career cards and ask which ones sound interesting — and why.</div></div>
+     <div class="h3step"><span class="h3num">3</span><div class="h3t">Pick one small next step</div><div class="h3d">A camp, a class, a chat with someone in the field. Small tries beat big decisions.</div></div>
+   </div>
+
+   <div class="mid-note" style="margin-top:26px"><strong>Using this with a classroom or group?</strong> Each adult account can hold several student profiles, each with its own quiz results, saved programs, and roadmap. It works well for advisory periods, career units, and counseling. Want a school or district setup? Reach out through the <a data-go="pricing">Plans page</a>.</div>
+
+   <div class="ls-card" style="margin-top:22px">
+     <h3>Your student's privacy</h3>
+     <p>We ask for as little as possible — a first name or nickname, quiz answers, and saved notes. No last names, addresses, or photos. The adult holds the account and can delete any student's data at any time. See the full <a data-go="legal">Privacy &amp; Terms</a>.</p>
+   </div>
+
+   <div class="cta-row" style="margin-top:26px">
+     <button class="btn" data-go="quiz">Try the free quiz</button>
+     <button class="btn ghost" data-go="pricing">See plans &amp; pricing →</button>
    </div>
  </section>
 
@@ -1599,7 +1788,7 @@
        <p>You must be 18+ and the parent, guardian, or educator of any student who uses your account. You're
          responsible for activity under your account and for the students you add.</p>
        <h4>Payment &amp; refunds</h4>
-       <p>Paid plans are subscriptions billed every 6 months, as described on the pricing page. You can
+       <p>Paid plans are subscriptions billed monthly, as described on the pricing page. You can
          cancel anytime to stop future renewals. If you're not satisfied, email
          privacyskyraroadmap@gmail.com within 14 days of a charge for a full refund. Payments are handled by our third-party payment processor; we do not store your card details.</p>
        <h4>Acceptable use</h4>
@@ -1615,8 +1804,7 @@
 
    </div>
    <footer>
- <div class="mono">SKYRA ROADMAP</div> Built around the Holland Codes (RIASEC) — the same six-type framework career counselors really use.<br> Pay figures are rough U.S. estimates that change over time and by location. Treat all of this as a
-  starting point for your own research and conversations — not a verdict. Changing your mind is allowed, and normal.
+ <div class="mono">SKYRA ROADMAP</div> Built on the Holland Codes (RIASEC) — the same six types that real career counselors use.<br> Pay numbers are rough U.S. guesses that change over time and by place. Use all of this as a place to start, not a final answer. Changing your mind is okay, and normal.
   <br><a class="foot-link" href="/blog/">Guides</a> · <a class="foot-link" data-go="legal">Privacy &amp; Terms</a>
 </footer>
  </main>
@@ -1627,8 +1815,7 @@
   <div class="consent-card" role="dialog" aria-modal="true" aria-labelledby="consentTitle">
     <svg class="consent-star" viewBox="0 0 120 120" aria-hidden="true"><path d="M 60,6 L 69.19,50.81 L 100,60 L 69.19,69.19 L 60,100 L 50.81,69.19 L 20,60 L 50.81,50.81 Z" fill="#1d1e22"/><path d="M 60,6 L 69.19,50.81 L 50.81,50.81 Z" fill="#F4B740"/></svg>
     <h2 id="consentTitle">Welcome to Skyra Roadmap</h2>
-    <p>Skyra Roadmap is a career-exploration tool used by students, so accounts are held by a
-      <strong>parent, guardian, or educator</strong>. You'll set up a profile for each student you're helping.</p>
+    <p>Skyra Roadmap is for students, so the account is held by a <strong>parent, guardian, or teacher</strong>. You'll make a profile for each student you help.</p>
     <label class="consent-check">
       <input type="checkbox" id="consentAge">
       <span>I'm 18 or older and the parent, guardian, or educator responsible for the student(s) who will use this account.</span>
@@ -1700,10 +1887,23 @@
    <div class="rt-left"> Your Career Report — ready to save</div>
    <div class="rt-right">
      <button class="rt-btn ghost" id="reportClose">Close</button>
+     <button class="rt-btn ghost" id="reportEmail">Email me my plan</button>
      <button class="rt-btn" id="reportPrint">Print / Save as PDF</button>
    </div>
  </div>
  <div class="report-sheet" id="reportSheet"></div>
+</div>
+
+<!-- ===================== EMAIL MY PLAN ===================== -->
+<div class="email-modal" id="emailModal" hidden>
+  <div class="email-card" role="dialog" aria-modal="true" aria-labelledby="emTitle">
+    <button class="em-x" id="emClose" aria-label="Close">&times;</button>
+    <h2 id="emTitle">Email me my plan</h2>
+    <p>We'll send your top career matches and your next steps to your inbox. One email — no spam.</p>
+    <input id="emailInput" type="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address">
+    <button class="btn" id="emailSend">Send my plan</button>
+    <p class="em-note" id="emNote"></p>
+  </div>
 </div>
 
 
@@ -2802,6 +3002,7 @@ function show(id){
   document.body.dataset.screen=id;
   if(id==='results') updateResultsScreen();
   if(id==='classplan') updateClassPlan();
+  if(id==='compare' && window.__onShowCompare) window.__onShowCompare();
   screens.forEach(s=>s.classList.toggle('on', s.id===id));
   tabs.forEach(t=>t.setAttribute('aria-current', String(t.dataset.go===id)));
   closeDrawer();
@@ -3270,8 +3471,8 @@ function renderPlans(){
     el.className='plan'+(p.popular?' featured':'')+(enrolledPlan===p.id?' current':'');
     const isCurrent=enrolledPlan===p.id;
     const paid=price!==0;
-    const priceHTML = `<span class="amt">${money(price)}</span>${paid?'<span class="per"> / 6 months</span>':''}`;
-    const billHTML = paid ? 'billed every 6 months · cancel anytime' : 'free forever';
+    const priceHTML = `<span class="amt">${money(price)}</span>${paid?'<span class="per"> / month</span>':''}`;
+    const billHTML = paid ? 'billed monthly · cancel anytime' : 'free forever';
     const buyable = !paid || p.available !== false;   // paid plans need a checkout link
     const hasPaid = PLAN_RANK[enrolledPlan] >= 2;      // user already has a paid subscription
     let cta;
@@ -3333,7 +3534,10 @@ function updateGates(){
     camps:'The directory of 75+ real career summer camps unlocks with <strong>Full Access</strong>.',
     roadmap:'The year-by-year high-school roadmap unlocks with <strong>Full Access</strong>.',
     classplan:'Your personalized class &amp; activity plan unlocks with <strong>Full Access</strong>.',
-    certs:'College &amp; certificate career paths unlock with <strong>Full Access</strong>.'
+    certs:'College &amp; certificate career paths unlock with <strong>Full Access</strong>.',
+    compare:'The side-by-side career comparison tool unlocks with <strong>Full Access</strong>.',
+    afford:'The college-vs-trade cost calculator unlocks with <strong>Full Access</strong>.',
+    nearby:'The find-programs-near-you tool unlocks with <strong>Full Access</strong>.'
   };
   document.querySelectorAll('.gate').forEach(g=>{
     const need=parseInt(g.dataset.rank,10);
@@ -3349,7 +3553,7 @@ function updateGates(){
     }
   });
   // tabs: show/hide lock icon per required tier
-  const needByTab={explore:2, collars:2, camps:2, college:2, roadmap:2, classplan:2, certs:2};
+  const needByTab={explore:2, collars:2, camps:2, college:2, roadmap:2, classplan:2, certs:2, compare:2, afford:2, nearby:2};
   document.querySelectorAll('.tab.lockable').forEach(t=>{
     const need=needByTab[t.dataset.go] ?? 1;
     t.classList.toggle('unlocked', rankOf()>=need);
@@ -4209,6 +4413,141 @@ document.querySelectorAll('[data-go="legal"]').forEach(el=> el.onclick=()=>show(
     // clean the query string so a refresh doesn't repeat it
     history.replaceState({}, '', location.pathname);
   }
+})();
+
+/* ============================================================
+   ADDED FREE TOOLS: Compare · Cost Calculator · Programs Near You · Email my plan
+============================================================ */
+(function(){
+  var COLLAR_LABEL={white:'White collar · office / professional',blue:'Blue collar · hands-on / trade',
+    pink:'Pink collar · care / service',green:'Green collar · outdoor / eco',gray:'Gray collar · mixed / tech',gold:'Gold collar · high-skill'};
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---------- Compare careers ---------- */
+  var selA=document.getElementById('cmpA'), selB=document.getElementById('cmpB'), cmpTable=document.getElementById('cmpTable');
+  var cmpTouched=false;
+  function byName(n){ return CAREERS.find(function(c){return c.n===n;}); }
+  function fillCompare(){
+    if(!selA||!selB) return;
+    var sorted=CAREERS.slice().sort(function(a,b){return a.n.localeCompare(b.n);});
+    var opts=sorted.map(function(c){return '<option value="'+esc(c.n)+'">'+esc(c.n)+'</option>';}).join('');
+    selA.innerHTML=opts; selB.innerHTML=opts;
+    var a=CAREERS[0].n, b=CAREERS[1].n;
+    if(typeof lastResults!=='undefined' && lastResults && lastResults.top5 && lastResults.top5.length>=2){
+      a=lastResults.top5[0].c.n; b=lastResults.top5[1].c.n;
+    }
+    selA.value=a; selB.value=b;
+    renderCompare();
+  }
+  function crow(label,a,b){
+    return '<div class="cmp-row"><div class="cmp-lab">'+label+'</div>'+
+      '<div class="cmp-a" data-who="A:">'+esc(a||'—')+'</div>'+
+      '<div class="cmp-b" data-who="B:">'+esc(b||'—')+'</div></div>';
+  }
+  function renderCompare(){
+    if(!cmpTable) return;
+    var A=byName(selA.value), B=byName(selB.value);
+    if(!A||!B){ cmpTable.innerHTML=''; return; }
+    var h='<div class="cmp-row cmp-head"><div class="cmp-lab"></div><div class="cmp-a">'+esc(A.n)+'</div><div class="cmp-b">'+esc(B.n)+'</div></div>';
+    h+=crow('What it is',A.blurb,B.blurb);
+    h+=crow('Typical pay',A.pay,B.pay);
+    h+=crow('Time to get there',A.years,B.years);
+    h+=crow('Job type',COLLAR_LABEL[A.collar]||A.collar,COLLAR_LABEL[B.collar]||B.collar);
+    h+=crow('A day in the life',A.day,B.day);
+    h+=crow('College way',A.major,B.major);
+    h+=crow('No-degree way',A.alt,B.alt);
+    h+=crow('Skills you build',(A.skills||[]).join(', '),(B.skills||[]).join(', '));
+    h+=crow('Do this now',A.now,B.now);
+    h+=crow('The hard part',A.hard,B.hard);
+    cmpTable.innerHTML=h;
+  }
+  if(selA&&selB){ selA.onchange=function(){cmpTouched=true;renderCompare();}; selB.onchange=function(){cmpTouched=true;renderCompare();}; }
+  window.__onShowCompare=function(){ if(!cmpTouched) fillCompare(); else renderCompare(); };
+
+  /* ---------- Cost calculator ---------- */
+  function num(id){ var el=document.getElementById(id); return el?Math.max(0,parseFloat(el.value)||0):0; }
+  function money(x){ var s=Math.round(x); return (s<0?'-$':'$')+Math.abs(s).toLocaleString(); }
+  function calcAfford(){
+    var res=document.getElementById('affResult'); if(!res) return;
+    var cCost=num('affColCost'), cYears=num('affColYears')||1, cEarn=num('affColEarn');
+    var tCost=num('affTrCost'), tMonths=num('affTrMonths'), tPay=num('affTrPay');
+    var horizon=cYears;
+    var collegeNet=cEarn*cYears - cCost*cYears;
+    var trainY=Math.min(tMonths/12,horizon), workY=Math.max(horizon-trainY,0);
+    var tradeNet=tPay*0.5*trainY + tPay*workY - tCost;
+    var diff=tradeNet-collegeNet;
+    function tile(t,v){ return '<div class="aff-tile '+(v>=0?'pos':'neg')+'"><div class="aff-tt">'+t+'</div><div class="aff-tv">'+money(v)+'</div><div class="aff-ts">cash position after ~'+cYears+' years</div></div>'; }
+    var take;
+    if(diff>=0){ take='After about <b>'+cYears+' years</b> (around age '+(18+cYears)+'), the trade / apprenticeship path could leave you roughly <b>'+money(diff)+'</b> ahead in cash — because you earn while the college path is still paying tuition.'; }
+    else { take='After about <b>'+cYears+' years</b>, the college path comes out about <b>'+money(-diff)+'</b> ahead in cash here — often because it earns enough while studying or costs little.'; }
+    res.innerHTML='<div class="aff-tiles">'+tile('College path',collegeNet)+tile('Trade / apprenticeship',tradeNet)+'</div>'+
+      '<div class="aff-take">'+take+'</div>'+
+      '<div class="aff-caveat"><b>Important:</b> this only counts the first '+cYears+' years, and assumes you earn about half-pay while training. A degree can unlock higher-paying or required careers (nurse, engineer, teacher) that pay off later — and some trades reach six figures. Use this to see the trade-off, then pick the path that fits the <i>job you want</i>.</div>'+
+      '<p class="aff-fine">Rough estimates to help you think — not exact numbers. Real costs, aid, and pay vary a lot.</p>';
+  }
+  ['affColCost','affColYears','affColEarn','affTrCost','affTrMonths','affTrPay'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.addEventListener('input',calcAfford);
+  });
+  calcAfford();
+
+  /* ---------- Programs near you ---------- */
+  function buildNearby(){
+    var box=document.getElementById('zipLinks'); if(!box) return;
+    var zip=(document.getElementById('zipIn').value||'').trim();
+    if(!/^\d{5}$/.test(zip)){ box.innerHTML='<p class="zip-hint">Please enter a 5-digit ZIP code.</p>'; return; }
+    function g(q){ return 'https://www.google.com/search?q='+encodeURIComponent(q); }
+    function maps(q){ return 'https://www.google.com/maps/search/'+encodeURIComponent(q); }
+    var top=(typeof lastResults!=='undefined' && lastResults && lastResults.top5 && lastResults.top5[0])?lastResults.top5[0].c.n:'';
+    var links=[
+      ['Community colleges near you','Two-year degrees and certificates close to home.',maps('community colleges near '+zip)],
+      ['Official college search','Compare colleges and programs by distance on the U.S. Dept. of Education College Navigator.','https://nces.ed.gov/collegenavigator/?zc='+zip+'&zd=50'],
+      ['Apprenticeships near you','Earn-while-you-learn programs registered with the U.S. Dept. of Labor.',g('registered apprenticeships near '+zip)],
+      ['Local training programs','Trade and certificate programs via CareerOneStop (U.S. Dept. of Labor).','https://www.careeronestop.org/Toolkit/Training/find-local-training.aspx'],
+      ['Career summer camps near you','Hands-on programs where teens try a field for real.',g('career summer programs for teens near '+zip)]
+    ];
+    if(top){ links.push(['"'+top+'" programs near you','Search schools and training for your top match.',g(top+' training programs near '+zip)]); }
+    box.innerHTML=links.map(function(l){ return '<a class="zip-card" href="'+l[2]+'" target="_blank" rel="noopener noreferrer"><b>'+esc(l[0])+'</b><span>'+esc(l[1])+'</span><span class="zip-go">Open &rarr;</span></a>'; }).join('');
+  }
+  var zipGo=document.getElementById('zipGo'), zipIn=document.getElementById('zipIn');
+  if(zipGo) zipGo.onclick=buildNearby;
+  if(zipIn) zipIn.addEventListener('keydown',function(e){ if(e.key==='Enter') buildNearby(); });
+
+  /* ---------- Email my plan ---------- */
+  var emModal=document.getElementById('emailModal');
+  function openEmail(){ if(!emModal) return; emModal.hidden=false; var i=document.getElementById('emailInput'); if(i){i.value='';i.focus();} var nte=document.getElementById('emNote'); if(nte){nte.textContent='';nte.className='em-note';} }
+  function closeEmail(){ if(emModal) emModal.hidden=true; }
+  function payload(){
+    var ms=(typeof lastResults!=='undefined' && lastResults && lastResults.top5?lastResults.top5:[]).slice(0,5).map(function(r){
+      return {n:r.c.n,pay:r.c.pay,major:r.c.major,alt:r.c.alt,now:r.c.now}; });
+    return { email:(document.getElementById('emailInput').value||'').trim(), audience:(typeof audience==='function'?audience():'student'), matches:ms };
+  }
+  function mailtoFallback(p){
+    var lines=['My Skyra Roadmap career matches:',''];
+    p.matches.forEach(function(m,i){ lines.push((i+1)+'. '+m.n+' — '+m.pay); lines.push('   College way: '+m.major); lines.push('   No-degree way: '+m.alt); lines.push('   Do now: '+m.now); lines.push(''); });
+    lines.push('From Skyra Roadmap — https://skyraroadmap.com');
+    window.location.href='mailto:'+encodeURIComponent(p.email)+'?subject='+encodeURIComponent('My Skyra Roadmap career plan')+'&body='+encodeURIComponent(lines.join('\n'));
+  }
+  async function sendPlan(){
+    var note=document.getElementById('emNote'); var p=payload();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(p.email)){ note.textContent='Please enter a valid email address.'; note.className='em-note err'; return; }
+    if(!p.matches.length){ note.textContent='Take the quiz first so there is a plan to send.'; note.className='em-note err'; return; }
+    note.textContent='Sending…'; note.className='em-note';
+    try{
+      var r=await fetch('/api/send-plan',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});
+      var j={}; try{ j=await r.json(); }catch(e){}
+      if(r.ok && j && j.ok){ note.textContent='Sent! Check your inbox (and spam, just in case).'; note.className='em-note ok'; return; }
+      mailtoFallback(p); note.textContent='Opening your email app so you can send it to yourself…'; note.className='em-note';
+    }catch(e){ mailtoFallback(p); note.textContent='Opening your email app so you can send it to yourself…'; note.className='em-note'; }
+  }
+  var emBtn=document.getElementById('emailPlanBtn'); if(emBtn) emBtn.onclick=openEmail;
+  var reBtn=document.getElementById('reportEmail'); if(reBtn) reBtn.onclick=openEmail;
+  var emClose=document.getElementById('emClose'); if(emClose) emClose.onclick=closeEmail;
+  var emSend=document.getElementById('emailSend'); if(emSend) emSend.onclick=sendPlan;
+  if(emModal) emModal.addEventListener('click',function(e){ if(e.target===emModal) closeEmail(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape' && emModal && !emModal.hidden) closeEmail(); });
+
+  /* init compare */
+  fillCompare();
 })();
 </script>
 </body>
